@@ -1,0 +1,12 @@
+blinker==1.8.2
+click==8.1.7
+Flask==3.0.3
+gensim==4.3.3
+itsdangerous==2.2.0
+Jinja2==3.1.4
+MarkupSafe==2.1.5
+numpy==1.26.4
+scipy==1.13.1
+smart-open==7.0.4
+Werkzeug==3.0.4
+wrapt==1.16.0

@@ -1,0 +1,12 @@
+{
+  "name": "Mindle",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "concurrently \"yarn run frontend\" \"yarn run backend\"",
+    "frontend": "cd frontend && yarn start",
+    "backend": "cd backend && venv/bin/python server.py"
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
