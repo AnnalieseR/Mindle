@@ -1,7 +1,10 @@
 {
   "name": "Mindle",
   "version": "1.0.0",
+"license": "UNLICENSED",
   "scripts": {
+    "setup": "yarn install-all",
+    "install-all": "concurrently \"cd frontend && yarn install\" \"cd backend && yarn install && python3 -m venv venv && venv/bin/pip install -r requirements.txt\"",
     "start": "concurrently \"yarn run frontend\" \"yarn run backend\"",
     "frontend": "cd frontend && yarn start",
     "backend": "cd backend && venv/bin/python server.py"

@@ -18,7 +18,7 @@ const App = () => {
       setShowCorrectWord(true);
       return;
     }
-  }, [guesses])
+  }, [guesses, correctWord])
 
   const handleAddGuess = async (guess) => {
     if (guesses.length >= maxGuesses) {
