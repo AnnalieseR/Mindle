@@ -4,3 +4,4 @@ gensim==4.3.3
 huggingface_hub==0.17.2
 numpy==1.26.4
 scipy==1.13.1
+Flask-Limiter==3.8.0

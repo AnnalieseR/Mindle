@@ -1,11 +1,21 @@
 import os
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 from gensim.models import KeyedVectors
 from huggingface_hub import hf_hub_download
 
 app = Flask(__name__)
 CORS(app)
+
+limiter = Limiter(
+    get_remote_address,
+    app=app,
+    # some sane limit considering we are serving a model
+    default_limits=["2 per second"],
+    storage_uri="memory://"
+)
 
 # Define the Hugging Face repository and model filename
 repo_id = "fse/word2vec-google-news-300"
