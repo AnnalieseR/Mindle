@@ -9,23 +9,33 @@ CORS(app)
 
 # Define the Hugging Face repository and model filename
 repo_id = "fse/word2vec-google-news-300"
-filename = "word2vec-google-news-300.model"
+model_filename = "word2vec-google-news-300.model"
+vectors_filename = "word2vec-google-news-300.model.vectors.npy"
 
 # Define the local path where the model should be saved or checked
-local_model_path = os.path.join("word2vec", filename)  # Adjust the folder path if necessary
+local_model_path = os.path.join("word2vec", model_filename)
+local_vectors_path = os.path.join("word2vec", vectors_filename)
 
 # Ensure the models directory exists
 os.makedirs(os.path.dirname(local_model_path), exist_ok=True)
+os.makedirs(os.path.dirname(local_vectors_path), exist_ok=True)
 
 # Check if the model exists locally; if not, download it
 if not os.path.exists(local_model_path):
-    print("Model not found locally. Downloading from Hugging Face...")
-    local_model_path = hf_hub_download(repo_id=repo_id, filename=filename)
-    print(f"Model downloaded to {local_model_path}")
+    print("Model not found locally. Fetch from Hugging Face / check cache...")
+    local_model_path = hf_hub_download(repo_id=repo_id, filename=model_filename)
+    print(f"Model loaded from {local_model_path}")
 else:
     print("Model found locally.")
 
-# Load the Word2Vec model
+if not os.path.exists(local_vectors_path):
+    print("Vectors not found locally. Fetch from Hugging Face / check cache...")
+    local_vectors_path = hf_hub_download(repo_id=repo_id, filename=vectors_filename)
+    print(f"Vectors loaded from {local_vectors_path}")
+else:
+    print("Vectors found locally.")
+
+# Load the Word2Vec model (requires both the model file and vector file, even though just loading local_model_path)
 model = KeyedVectors.load(local_model_path)
 
 @app.route('/calculate-position', methods=['POST'])
